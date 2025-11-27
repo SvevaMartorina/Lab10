@@ -3,22 +3,26 @@ import networkx as nx
 
 class Model:
     def __init__(self):
-        self._nodes = None
-        self._edges = None
+        self._nodes = []
+        self._edges = []
         self._num_nodes = 0
         self._num_edges = 0
         self._G = nx.Graph()
 
-
+        # dizionario: id_hub -> oggetto Hub
+        self._hub_by_id = {}
     def costruisci_grafo(self, threshold):
         """
         Costruisce il grafo (self.G) inserendo tutti gli Hub (i nodi) presenti e filtrando le Tratte con
         guadagno medio per spedizione >= threshold (euro)
         """
+        self._nodes = DAO.hub()
+        self._edges = DAO.tratta()
+
         for hub in self._nodes:
-            self._G.add_node(hub.id)
+            self._G.add_node(hub.id, hub=hub)
         for tratta in self._edges:
-            if tratta.guadagno_medio >= threshold:
+            if float(tratta.guadagno_medio) >= float(threshold):
                 self._G.add_edge(tratta.id_hub_origine,
                                  tratta.id_hub_destinazione,
                                  weight=tratta.guadagno_medio)

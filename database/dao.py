@@ -11,10 +11,10 @@ class DAO:
     """
     @staticmethod
     def spedizione():
-        cnx = DBConnect().get_connection()
+        cnx = DBConnect.get_connection()
         result = []
         cursor = cnx.cursor()
-        query = ('''SELECT * FROM spedizione S ''', )
+        query = '''SELECT * FROM spedizione S '''
         cursor.execute(query)
 
         for row in cursor:
@@ -27,7 +27,7 @@ class DAO:
 
     @staticmethod
     def compagnia():
-        cnx = DBConnect().get_connection()
+        cnx = DBConnect.get_connection()
         result = []
         cursor = cnx.cursor()
         query = '''SELECT * FROM compagnia'''
@@ -43,14 +43,14 @@ class DAO:
 
     @staticmethod
     def hub():
-        cnx = DBConnect().get_connection()
+        cnx = DBConnect.get_connection()
         result = []
-        cursor = cnx.cursor()
+        cursor = cnx.cursor(dictionary=True)
         query = '''SELECT * FROM hub'''
         cursor.execute(query)
 
         for row in cursor:
-            hub = Hub(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
+            hub = Hub(row['id'], row['codice'], row['nome'], row['citta'], row['stato'], row['latitudine'], row['longitudine'])
             result.append(hub)
 
         cursor.close()
@@ -59,7 +59,7 @@ class DAO:
 
     @staticmethod
     def tratta():
-        cnx = DBConnect().get_connection()
+        cnx = DBConnect.get_connection()
         result = []
         cursor = cnx.cursor(dictionary=True)
         query = '''
