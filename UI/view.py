@@ -35,7 +35,7 @@ class View:
                                               on_click=self.controller.mostra_tratte)
 
         # Visualizzazione mediante ListView
-        self.lista_visualizzazione = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
+        self._lista_visualizzazione = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
 
         # --- Toggle Tema ---
         self.toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=self.cambia_tema)
@@ -54,7 +54,7 @@ class View:
 
             # Sezione 3
             ft.Container(
-                content=self.lista_visualizzazione,
+                content=self._lista_visualizzazione,
                 height=430,
                 border=ft.border.all(1, ft.Colors.BLACK),
                 padding=10,
